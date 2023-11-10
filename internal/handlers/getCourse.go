@@ -10,7 +10,7 @@ type lang struct {
 	Id int64 `json:"id"`
 }
 
-func (ch TransactionHandler) GetCourse() http.HandlerFunc {
+func (ch Handler) GetCourse() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var language lang
 		err := json.NewDecoder(r.Body).Decode(&language)

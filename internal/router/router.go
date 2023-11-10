@@ -4,7 +4,6 @@ import (
 	"context"
 	"github.com/gorilla/mux"
 	"go.uber.org/fx"
-	"log"
 	"muassisa-service/internal/config"
 	"muassisa-service/internal/handlers"
 	"muassisa-service/internal/pkg/service"
@@ -19,20 +18,19 @@ var EntryPoint = fx.Options(
 
 type dependencies struct {
 	fx.In
-	Lifecycle   fx.Lifecycle
-	Config      config.IConfig
-	SVC         service.IService
-	Transaction handlers.IHandler
+	Lifecycle fx.Lifecycle
+	Config    config.IConfig
+	SVC       service.IService
+	Handler   handlers.IHandler
 }
 
 func NewRouter(d dependencies) {
 	server := mux.NewRouter()
 	mainRoute := server.PathPrefix("/api").Subrouter()
 	routeVer := mainRoute.PathPrefix("/v1").Subrouter()
-	transactionRoute := routeVer.PathPrefix("/muassisa").Subrouter()
-	log.Println(transactionRoute)
-	transactionRoute.HandleFunc("/get-language", d.Transaction.GetLanguage()).Methods("GET", "OPTIONS")
-	transactionRoute.HandleFunc("/get-course", d.Transaction.GetCourse()).Methods("GET", "OPTIONS")
+	courseRoute := routeVer.PathPrefix("/muassisa").Subrouter()
+	courseRoute.HandleFunc("/get-language", d.Handler.GetLanguage()).Methods("GET", "OPTIONS")
+	courseRoute.HandleFunc("/get-course", d.Handler.GetCourse()).Methods("GET", "OPTIONS")
 	srv := http.Server{
 		Addr:    d.SVC.ConfigInstance().GetString("api.server.port"),
 		Handler: server,

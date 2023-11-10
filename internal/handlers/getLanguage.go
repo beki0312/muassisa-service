@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func (ch TransactionHandler) GetLanguage() http.HandlerFunc {
+func (ch Handler) GetLanguage() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		language, err := ch.svc.RepositoryInstance().GeLanguage()

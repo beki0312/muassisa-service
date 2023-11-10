@@ -18,13 +18,13 @@ type dependencies struct {
 	SVC    service.IService
 	Logger logger.ILogger
 }
-type TransactionHandler struct {
+type Handler struct {
 	svc    service.IService
 	Logger logger.ILogger
 }
 
 func newHandler(d dependencies) IHandler {
-	return TransactionHandler{
+	return Handler{
 		svc:    d.SVC,
 		Logger: d.Logger,
 	}
