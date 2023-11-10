@@ -7,25 +7,23 @@ import (
 	"net/http"
 )
 
-var NewTransactionHandler = fx.Provide(newTransactionHandler)
+var NewHandler = fx.Provide(newHandler)
 
-type ITransactionHandler interface {
+type IHandler interface {
 	GetLanguage() http.HandlerFunc
 	GetCourse() http.HandlerFunc
 }
-
 type dependencies struct {
 	fx.In
 	SVC    service.IService
 	Logger logger.ILogger
 }
-
 type TransactionHandler struct {
 	svc    service.IService
 	Logger logger.ILogger
 }
 
-func newTransactionHandler(d dependencies) ITransactionHandler {
+func newHandler(d dependencies) IHandler {
 	return TransactionHandler{
 		svc:    d.SVC,
 		Logger: d.Logger,

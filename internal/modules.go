@@ -14,7 +14,7 @@ var Modules = fx.Options(
 	service.NewService,
 	config.NewConfig,
 	logger.NewLogger,
-	handlers.NewTransactionHandler,
-	repository.NewRepositoryTransaction,
+	handlers.NewHandler,
+	repository.NewRepository,
 	db.NewPostgres,
 )

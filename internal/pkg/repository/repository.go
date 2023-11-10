@@ -8,13 +8,11 @@ import (
 	"go.uber.org/fx"
 )
 
-var NewRepositoryTransaction = fx.Provide(newRepositoryTransaction)
+var NewRepository = fx.Provide(newRepository)
 
-type ITransactionRepository interface {
-	AddTransactionsPos(transactions []*models.AddTransaction) (errResponse models.ErrorResponse)
+type IRepository interface {
 	GetCourse(language int64) (transactions []*models.GetCourse, errs error)
 	GeLanguage() (lang []models.Language, errs error)
-	UpdateStatus(transId string) (errResponse models.ErrorResponse)
 }
 
 type dependencies struct {
@@ -28,7 +26,7 @@ type repository struct {
 	Logger   logger.ILogger
 }
 
-func newRepositoryTransaction(dp dependencies) ITransactionRepository {
+func newRepository(dp dependencies) IRepository {
 	return &repository{
 		Postgres: dp.Postgres,
 		Logger:   dp.Logger,

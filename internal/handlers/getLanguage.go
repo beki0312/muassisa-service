@@ -8,7 +8,7 @@ import (
 func (ch TransactionHandler) GetLanguage() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
-		language, err := ch.svc.TransactionRepositoryInstance().GeLanguage()
+		language, err := ch.svc.RepositoryInstance().GeLanguage()
 		if err != nil {
 			ch.Logger.Error("response", err)
 			response.ToJson(w, http.StatusBadRequest, map[string]interface{}{

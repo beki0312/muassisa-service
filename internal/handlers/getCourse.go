@@ -21,7 +21,7 @@ func (ch TransactionHandler) GetCourse() http.HandlerFunc {
 			})
 			return
 		}
-		course, err := ch.svc.TransactionRepositoryInstance().GetCourse(language.Id)
+		course, err := ch.svc.RepositoryInstance().GetCourse(language.Id)
 		if err != nil {
 			ch.Logger.Error("response", err)
 			response.ToJson(w, http.StatusBadRequest, map[string]interface{}{

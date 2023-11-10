@@ -22,8 +22,7 @@ type dependencies struct {
 	Lifecycle   fx.Lifecycle
 	Config      config.IConfig
 	SVC         service.IService
-	Transaction handlers.ITransactionHandler
-	//Worker      workers.IWorker
+	Transaction handlers.IHandler
 }
 
 func NewRouter(d dependencies) {

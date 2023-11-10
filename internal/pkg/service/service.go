@@ -12,26 +12,26 @@ var NewService = fx.Provide(newService)
 type IService interface {
 	ConfigInstance() config.IConfig
 	LoggerInstance() logger.ILogger
-	TransactionRepositoryInstance() repository.ITransactionRepository
+	RepositoryInstance() repository.IRepository
 }
 
 type dependencies struct {
 	fx.In
-	Config                config.IConfig
-	TransactionRepository repository.ITransactionRepository
-	Logger                logger.ILogger
+	Config     config.IConfig
+	Repository repository.IRepository
+	Logger     logger.ILogger
 }
 
 type service struct {
-	Config                config.IConfig
-	TransactionRepository repository.ITransactionRepository
-	Logger                logger.ILogger
+	Config     config.IConfig
+	Repository repository.IRepository
+	Logger     logger.ILogger
 }
 
 func newService(d dependencies) IService {
 	return &service{
 		d.Config,
-		d.TransactionRepository,
+		d.Repository,
 		d.Logger,
 	}
 }
@@ -44,6 +44,6 @@ func (s service) LoggerInstance() logger.ILogger {
 	return s.Logger
 }
 
-func (s service) TransactionRepositoryInstance() repository.ITransactionRepository {
-	return s.TransactionRepository
+func (s service) RepositoryInstance() repository.IRepository {
+	return s.Repository
 }
