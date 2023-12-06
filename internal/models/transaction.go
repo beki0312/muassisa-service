@@ -18,3 +18,9 @@ type Language struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 }
+
+type Photoo struct {
+	Id    int64  `json:"id"`
+	Name  string `json:"name"`
+	Photo string `json:"photo" gorm:"column:iamge"`
+}

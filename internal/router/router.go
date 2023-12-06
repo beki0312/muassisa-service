@@ -31,6 +31,8 @@ func NewRouter(d dependencies) {
 	courseRoute := routeVer.PathPrefix("/muassisa").Subrouter()
 	courseRoute.HandleFunc("/get-language", d.Handler.GetLanguage()).Methods("GET", "OPTIONS")
 	courseRoute.HandleFunc("/get-course", d.Handler.GetCourse()).Methods("GET", "OPTIONS")
+	courseRoute.HandleFunc("/add-photo", d.Handler.AddPhoto()).Methods("POST", "OPTIONS")
+	courseRoute.HandleFunc("/get-photo", d.Handler.GetPhoto()).Methods("GET", "OPTIONS")
 	srv := http.Server{
 		Addr:    d.SVC.ConfigInstance().GetString("api.server.port"),
 		Handler: server,

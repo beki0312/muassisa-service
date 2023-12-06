@@ -55,7 +55,7 @@ func getConfigPath() (path string) {
 		panic(err)
 	}
 
-	slice := strings.Split(wd, "muasisa-service")
-	path = slice[0] + "muasisa-service/internal/config"
+	slice := strings.Split(wd, "muassisa-service")
+	path = slice[0] + "muassisa-service/internal/config"
 	return
 }
