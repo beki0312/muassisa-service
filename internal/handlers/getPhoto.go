@@ -10,7 +10,7 @@ import (
 type Phot struct {
 	Id    int64  `json:"id"`
 	Name  string `json:"name"`
-	photo string `json:"photo" gorm:"column:iamge"`
+	photo string `json:"photo" gorm:"column:image"`
 }
 
 func (ch Handler) GetPhoto() http.HandlerFunc {
@@ -34,6 +34,7 @@ func (ch Handler) GetPhoto() http.HandlerFunc {
 			})
 			return
 		}
+
 		//var file Phot
 		//for _, v := range course {
 		//	log.Println("course------> ", v)
@@ -56,27 +57,27 @@ func (ch Handler) GetPhoto() http.HandlerFunc {
 		//	}
 		//
 		//}
-		var pho Phot
-		for _, v := range course {
-			log.Println("course------>", v)
-			pho.Id = v.Id
-			pho.Name = v.Name
-			pho.photo = "C:\\Users\\user\\Desktop\\muassisa-service\\assets\\" + v.Photo
-		}
-		log.Print("pho----->", pho)
+		//var pho Phot
+		//for _, v := range course {
+		//	log.Println("course------>", v)
+		//	pho.Id = v.Id
+		//	pho.Name = v.Name
+		//	pho.photo = "C:\\Users\\user\\Desktop\\muassisa-service\\assets\\" + v.Photo
+		//}
+		//log.Print("pho----->", pho)
 		// Сериализация данных в JSON
-		jsonData, err := json.Marshal(pho)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+		//jsonData, err := json.Marshal(course)
+		//if err != nil {
+		//	http.Error(w, err.Error(), http.StatusInternalServerError)
+		//	return
+		//}
 
 		// Установка заголовка ответа и отправка данных в ответе
-		w.Header().Set("Content-Type", "application/json")
-		w.Write(jsonData)
-		//ch.Logger.Info("course: ", pho)
-		//response.ToJson(w, http.StatusOK, map[string]interface{}{
-		//	"response": pho,
-		//})
+		//w.Header().Set("Content-Type", "application/json")
+		//w.Write(jsonData)
+		ch.Logger.Info("course: ", course)
+		response.ToJson(w, http.StatusOK, map[string]interface{}{
+			"response": course,
+		})
 	}
 }

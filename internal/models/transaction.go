@@ -22,5 +22,5 @@ type Language struct {
 type Photoo struct {
 	Id    int64  `json:"id"`
 	Name  string `json:"name"`
-	Photo string `json:"photo" gorm:"column:iamge"`
+	Photo string `json:"photo" gorm:"column:image"`
 }

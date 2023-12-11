@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 )
 
 func (ch Handler) AddPhoto() http.HandlerFunc {
@@ -16,15 +17,21 @@ func (ch Handler) AddPhoto() http.HandlerFunc {
 		r.ParseMultipartForm(10 << 20) // Максимальный размер загружаемого файла (10 МБ)
 		// Получение имени фото из формы
 		name := r.FormValue("name")
+		title := r.FormValue("title")
+		description := r.FormValue("description")
+		amount := r.FormValue("amount")
+		imageName := r.FormValue("imageName")
+		language := r.FormValue("language")
 		log.Println("name----> ", name)
 		// Проверяем, получили ли файл изображения
-		file, handler, err := r.FormFile("photo")
+		file, handler, err := r.FormFile("image")
 		if err != nil {
 			http.Error(w, "Failed to receive image file", http.StatusBadRequest)
 			return
 		}
 		defer file.Close()
-
+		summa, _ := strconv.Atoi(amount)
+		lang, _ := strconv.Atoi(language)
 		// Генерируем UUID
 		uuid := uuid.New().String()
 
@@ -43,7 +50,7 @@ func (ch Handler) AddPhoto() http.HandlerFunc {
 		if err != nil {
 			log.Fatal(err)
 		}
-		err = ch.svc.RepositoryInstance().AddPhoto(name, uuid+ext)
+		err = ch.svc.RepositoryInstance().AddPhoto(name, title, description, imageName, uuid+ext, int64(summa), int64(lang))
 		if err != nil {
 			ch.Logger.Error("response", err)
 			response.ToJson(w, http.StatusBadRequest, map[string]interface{}{
