@@ -12,11 +12,11 @@
       "warning": true
     },
     "postgres": {
-      "host": "localhost",
+      "host": "postgres.c83335.h2",
       "port": "5432",
-      "user": "app",
-      "dbname": "db",
-      "password": "pass"
+      "user": "c83335_schooltaj_na4u_ru",
+      "dbname": "c83335_schooltaj_na4u_ru",
+      "password": "SuMveTamqoluv35"
     }
   }
 }

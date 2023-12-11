@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"go.uber.org/fx"
-	"muassisa-service/internal/pkg/logger"
 	"muassisa-service/internal/pkg/service"
 	"net/http"
 )
@@ -15,17 +14,17 @@ type IHandler interface {
 }
 type dependencies struct {
 	fx.In
-	SVC    service.IService
-	Logger logger.ILogger
+	SVC service.IService
+	//Logger logger.ILogger
 }
 type Handler struct {
-	svc    service.IService
-	Logger logger.ILogger
+	svc service.IService
+	//Logger logger.ILogger
 }
 
 func newHandler(d dependencies) IHandler {
 	return Handler{
-		svc:    d.SVC,
-		Logger: d.Logger,
+		svc: d.SVC,
+		//Logger: d.Logger,
 	}
 }

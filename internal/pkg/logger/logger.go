@@ -91,7 +91,7 @@ func (l *logger) Error(format string, v ...interface{}) {
 	}
 }
 
-//getEncoder returns Encoder
+// getEncoder returns Encoder
 func getEncoder() zapcore.Encoder {
 
 	var encoderConfig = zapcore.EncoderConfig{
@@ -110,7 +110,7 @@ func getEncoder() zapcore.Encoder {
 	return zapcore.NewConsoleEncoder(encoderConfig)
 }
 
-//getWriter returns WriteSyncer
+// getWriter returns WriteSyncer
 func getWriter() zapcore.WriteSyncer {
 
 	lumberJackLogger := &lumberjack.Logger{

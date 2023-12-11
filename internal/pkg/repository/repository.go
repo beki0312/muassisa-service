@@ -1,11 +1,9 @@
 package repository
 
 import (
+	"go.uber.org/fx"
 	"muassisa-service/internal/models"
 	"muassisa-service/internal/pkg/db"
-	"muassisa-service/internal/pkg/logger"
-
-	"go.uber.org/fx"
 )
 
 var NewRepository = fx.Provide(newRepository)
@@ -18,17 +16,17 @@ type IRepository interface {
 type dependencies struct {
 	fx.In
 	Postgres db.IPostgres
-	Logger   logger.ILogger
+	//Logger   logger.ILogger
 }
 
 type repository struct {
 	Postgres db.IPostgres
-	Logger   logger.ILogger
+	//Logger   logger.ILogger
 }
 
 func newRepository(dp dependencies) IRepository {
 	return &repository{
 		Postgres: dp.Postgres,
-		Logger:   dp.Logger,
+		//Logger:   dp.Logger,
 	}
 }

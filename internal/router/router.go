@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/gorilla/mux"
 	"go.uber.org/fx"
-	"muassisa-service/internal/config"
+	"log"
 	"muassisa-service/internal/handlers"
 	"muassisa-service/internal/pkg/service"
 	"net/http"
@@ -19,9 +19,9 @@ var EntryPoint = fx.Options(
 type dependencies struct {
 	fx.In
 	Lifecycle fx.Lifecycle
-	Config    config.IConfig
-	SVC       service.IService
-	Handler   handlers.IHandler
+	//Config    config.IConfig
+	SVC     service.IService
+	Handler handlers.IHandler
 }
 
 func NewRouter(d dependencies) {
@@ -30,20 +30,23 @@ func NewRouter(d dependencies) {
 	routeVer := mainRoute.PathPrefix("/v1").Subrouter()
 	courseRoute := routeVer.PathPrefix("/muassisa").Subrouter()
 	courseRoute.HandleFunc("/get-language", d.Handler.GetLanguage()).Methods("GET", "OPTIONS")
-	courseRoute.HandleFunc("/get-course", d.Handler.GetCourse()).Methods("GET", "OPTIONS")
+	courseRoute.Path("/get-course").Queries("id", "{id}").HandlerFunc(d.Handler.GetCourse()).Methods("GET", "OPTIONS")
 	srv := http.Server{
-		Addr:    d.SVC.ConfigInstance().GetString("api.server.port"),
+		Addr:    "127.0.5.24:53488", //os.Getenv("APP_PORT"), //d.SVC.ConfigInstance().GetString("api.server.port"),
 		Handler: server,
 	}
+	log.Println("srv  ", srv.Addr)
 	d.Lifecycle.Append(
 		fx.Hook{
 			OnStart: func(ctx context.Context) error {
-				d.SVC.LoggerInstance().Info("Application started")
+				//d.SVC.LoggerInstance().Info("Application started")
+				log.Println("Application started")
 				go srv.ListenAndServe()
 				return nil
 			},
 			OnStop: func(ctx context.Context) error {
-				d.SVC.LoggerInstance().Info("Application stopped")
+				//d.SVC.LoggerInstance().Info("Application stopped")
+				log.Println("Application stopped")
 				return srv.Shutdown(ctx)
 			},
 		},

@@ -1,9 +1,10 @@
 package handlers
 
 import (
-	"encoding/json"
+	"github.com/gorilla/mux"
 	response "muassisa-service/internal/models"
 	"net/http"
+	"strconv"
 )
 
 type lang struct {
@@ -12,24 +13,18 @@ type lang struct {
 
 func (ch Handler) GetCourse() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var language lang
-		err := json.NewDecoder(r.Body).Decode(&language)
+		id := mux.Vars(r)[`id`]
+		num, _ := strconv.Atoi(id)
+
+		course, err := ch.svc.RepositoryInstance().GetCourse(int64(num))
 		if err != nil {
-			ch.Logger.Error("request", response.SetError(err))
+			//ch.Logger.Error("response", err)
 			response.ToJson(w, http.StatusBadRequest, map[string]interface{}{
 				"response": err,
 			})
 			return
 		}
-		course, err := ch.svc.RepositoryInstance().GetCourse(language.Id)
-		if err != nil {
-			ch.Logger.Error("response", err)
-			response.ToJson(w, http.StatusBadRequest, map[string]interface{}{
-				"response": err,
-			})
-			return
-		}
-		ch.Logger.Info("course: ", course)
+		//ch.Logger.Info("course: ", course)
 		response.ToJson(w, http.StatusOK, map[string]interface{}{
 			"response": course,
 		})
