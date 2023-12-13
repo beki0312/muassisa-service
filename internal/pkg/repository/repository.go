@@ -11,6 +11,8 @@ var NewRepository = fx.Provide(newRepository)
 type IRepository interface {
 	GetCourse(language int64) (transactions []*models.GetCourse, errs error)
 	GeLanguage() (lang []models.Language, errs error)
+	AddedCourse(name, title, description, imageName, image string, amount, language int64) error
+	GetCourseNew() (transactions []models.GetCourseNew, errs error)
 }
 
 type dependencies struct {

@@ -2,41 +2,48 @@ package handlers
 
 import (
 	"encoding/json"
-	"github.com/gorilla/mux"
+	"log"
 	"muassisa-service/internal/models"
 	"net/http"
-	"strconv"
 )
 
-type lang struct {
-	Id int64 `json:"id"`
-}
-
-func (ch Handler) GetCourse() http.HandlerFunc {
+func (ch Handler) GetCourseNew() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		id := mux.Vars(r)[`id`]
-		num, _ := strconv.Atoi(id)
 
-		course, err := ch.svc.RepositoryInstance().GetCourse(int64(num))
+		course, err := ch.svc.RepositoryInstance().GetCourseNew()
+		log.Println("handler get Course----> ", course)
 		if err != nil {
 			http.Error(w, "Ошибка", http.StatusInternalServerError)
 			return
 		}
-		var p []models.GetCourse
+		var p []models.GetCourseNew
 		for _, v := range course {
-			var b models.GetCourse
+			var b models.GetCourseNew
 			b.Id = v.Id
-			b.Name = v.Name
+			b.CourseName = v.CourseName
 			b.Title = v.Title
-			b.Description = v.Description
+			b.CourseDescription = v.CourseDescription
 			b.Amount = v.Amount
 			b.ImageName = v.ImageName
 			b.Image = "http://schooltaj.na4u.ru/assets/" + v.Image
+			b.Category = v.Category
+			b.Status = v.Status
+			b.InstructorName = v.InstructorName
+			b.InsrtuctorUnvon = v.InsrtuctorUnvon
+			b.InstructorDescription = v.InstructorDescription
+			b.Lectures = v.Lectures
+			b.Quizzes = v.Quizzes
+			b.Duration = v.Duration
+			b.SkillLevel = v.SkillLevel
+			b.Language = v.Language
+			b.Students = v.Students
+			b.Assessments = v.Assessments
 			b.DateBegin = v.DateBegin
 			b.DateEnd = v.DateEnd
-			b.Created_At = v.Created_At
+			b.CreatedAt = v.CreatedAt
 			p = append(p, b)
 		}
+		log.Println("handler get Course--pp--> ", p)
 
 		// Преобразуем структуру в JSON
 		jsonResponse, err := json.Marshal(p)
@@ -47,6 +54,8 @@ func (ch Handler) GetCourse() http.HandlerFunc {
 		// Устанавливаем заголовок Content-Type на application/json
 		w.Header().Set("Content-Type", "application/json")
 		// Отправляем JSON-ответ
+		log.Println("handler get Course--jsonResponse--> ", jsonResponse)
+
 		w.Write(jsonResponse)
 	}
 }

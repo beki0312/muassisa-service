@@ -11,6 +11,8 @@ var NewHandler = fx.Provide(newHandler)
 type IHandler interface {
 	GetLanguage() http.HandlerFunc
 	GetCourse() http.HandlerFunc
+	AddedCourse() http.HandlerFunc
+	GetCourseNew() http.HandlerFunc
 }
 type dependencies struct {
 	fx.In

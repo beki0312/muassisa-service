@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	response "muassisa-service/internal/models"
+	"encoding/json"
 	"net/http"
 )
 
@@ -10,15 +10,22 @@ func (ch Handler) GetLanguage() http.HandlerFunc {
 
 		language, err := ch.svc.RepositoryInstance().GeLanguage()
 		if err != nil {
-			//ch.Logger.Error("response", err)
-			response.ToJson(w, http.StatusBadRequest, map[string]interface{}{
-				"response": err,
-			})
+			http.Error(w, "Ошибка при преобразовании в JSON", http.StatusInternalServerError)
 			return
 		}
-		//ch.Logger.Info("language: ", language)
-		response.ToJson(w, http.StatusOK, map[string]interface{}{
-			"response": language,
-		})
+
+		// Преобразуем структуру в JSON
+		jsonResponse, err := json.Marshal(language)
+		if err != nil {
+			http.Error(w, "Ошибка при преобразовании в JSON", http.StatusInternalServerError)
+			return
+		}
+
+		// Устанавливаем заголовок Content-Type на application/json
+		w.Header().Set("Content-Type", "application/json")
+
+		// Отправляем JSON-ответ
+		w.Write(jsonResponse)
+
 	}
 }
