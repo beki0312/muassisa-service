@@ -32,8 +32,7 @@ func NewRouter(d dependencies) {
 	courseRoute.HandleFunc("/added_course", d.Handler.AddedCourse()).Methods("POST", "OPTIONS")
 	courseRoute.HandleFunc("/get-language", d.Handler.GetLanguage()).Methods("GET", "OPTIONS")
 	courseRoute.Path("/get-course").Queries("id", "{id}").HandlerFunc(d.Handler.GetCourse()).Methods("GET", "OPTIONS")
-	//courseRoute.HandleFunc("/get-courseNew", d.Handler.GetCourseNew()).Methods("GET", "OPTIONS")
-	courseRoute.HandleFunc("get_courseNew", d.Handler.GetCourseNew()).Methods("GET", "OPTIONS")
+	courseRoute.HandleFunc("/get-courses", d.Handler.GetCourseNew()).Methods("GET", "OPTIONS")
 	srv := http.Server{
 		Addr:    "127.0.5.24:53488", //os.Getenv("APP_PORT"), //d.SVC.ConfigInstance().GetString("api.server.port"),
 		Handler: server,

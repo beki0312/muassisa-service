@@ -25,12 +25,12 @@ type IPostgres interface {
 }
 
 func newPostgres(dp dependencies) IPostgres {
+	//host := "localhost"
+	//port := "5432"
+	//user := "app"
+	//dbname := "db"
+	//password := "pass"
 
-	//host := dp.Config.GetString("api.postgres.host")
-	//port := dp.Config.GetString("api.postgres.port")
-	//user := dp.Config.GetString("api.postgres.user")
-	//dbname := dp.Config.GetString("api.postgres.dbname")
-	//password := dp.Config.GetString("api.postgres.password")
 	host := "postgres.c83335.h2"
 	port := "5432"
 	user := "c83335_schooltaj_na4u_ru"

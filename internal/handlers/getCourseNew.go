@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"log"
 	"muassisa-service/internal/models"
 	"net/http"
 )
@@ -11,7 +10,6 @@ func (ch Handler) GetCourseNew() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		course, err := ch.svc.RepositoryInstance().GetCourseNew()
-		log.Println("handler get Course----> ", course)
 		if err != nil {
 			http.Error(w, "Ошибка", http.StatusInternalServerError)
 			return
@@ -43,7 +41,6 @@ func (ch Handler) GetCourseNew() http.HandlerFunc {
 			b.CreatedAt = v.CreatedAt
 			p = append(p, b)
 		}
-		log.Println("handler get Course--pp--> ", p)
 
 		// Преобразуем структуру в JSON
 		jsonResponse, err := json.Marshal(p)
@@ -54,8 +51,6 @@ func (ch Handler) GetCourseNew() http.HandlerFunc {
 		// Устанавливаем заголовок Content-Type на application/json
 		w.Header().Set("Content-Type", "application/json")
 		// Отправляем JSON-ответ
-		log.Println("handler get Course--jsonResponse--> ", jsonResponse)
-
 		w.Write(jsonResponse)
 	}
 }
