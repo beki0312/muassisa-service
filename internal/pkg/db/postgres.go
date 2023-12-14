@@ -43,7 +43,7 @@ func newPostgres(dp dependencies) IPostgres {
 		return nil
 	}
 
-	log.Println("Postgres connection success: ", host)
+	log.Println("Postgres connection success: ", connString)
 	dp.Logger.Info("%s", "Postgres connection success: ", host)
 	return &postgres{Postgres: conn}
 }

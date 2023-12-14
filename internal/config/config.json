@@ -11,6 +11,13 @@
       "error": true,
       "warning": true
     },
+    "postgres1": {
+      "host": "https://panel.netangels.ru/hosting/83335/virtualhosts/251637/dbms",
+      "port": "5432",
+      "user": "c83335_schooltaj_na4u_ru",
+      "dbname": "c83335_schooltaj_na4u_ru",
+      "password": "SuMveTamqoluv35"
+    },
     "postgres": {
       "host": "localhost",
       "port": "5432",

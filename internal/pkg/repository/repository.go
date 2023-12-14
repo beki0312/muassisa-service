@@ -13,6 +13,10 @@ var NewRepository = fx.Provide(newRepository)
 type IRepository interface {
 	GetCourse(language int64) (transactions []*models.GetCourse, errs error)
 	GeLanguage() (lang []models.Language, errs error)
+	Photo(name string, photo []byte) error
+	GetPhoto() (fileName string, errs error)
+	GetPhotoName(id int64) (fileName []Photos, errs error)
+	GetCourseNew() (transactions []models.GetCourseNew, errs error)
 }
 
 type dependencies struct {
