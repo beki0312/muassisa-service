@@ -13,6 +13,7 @@ type IRepository interface {
 	GeLanguage() (lang []models.Language, errs error)
 	AddedCourse(name, title, description, imageName, image string, amount, language int64) error
 	GetCourseNew() (transactions []models.GetCourseNew, errs error)
+	GetLesson(id string) (transactions []models.GetLesson, errs error)
 }
 
 type dependencies struct {

@@ -13,6 +13,7 @@ type IHandler interface {
 	GetCourse() http.HandlerFunc
 	AddedCourse() http.HandlerFunc
 	GetCourseNew() http.HandlerFunc
+	GetLessn() http.HandlerFunc
 }
 type dependencies struct {
 	fx.In

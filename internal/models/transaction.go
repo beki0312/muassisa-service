@@ -15,6 +15,17 @@ type GetCourse struct {
 	Created_At  time.Time `json:"created_At"`
 }
 
+type GetLesson struct {
+	Id          int64  `json:"id"`
+	CourseID    int64  `json:"course_id"`
+	Name        string `json:"name"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Link        string `json:"link"`
+	Time        string `json:"time"`
+	CreatedAt   string `json:"created_at"`
+}
+
 type Language struct {
 	Id          int64  `json:"id"`
 	Name        string `json:"name"`
